@@ -7,7 +7,6 @@ const axios = require("axios");
 // link and local port : 
 const local = 4000;
 const API_KEY = process.env.YOUR_API_KEY;
-const link = `https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${API_KEY}`
 
 // initialize server : 
 const app = express();
@@ -16,14 +15,16 @@ app.use(cors());
 
 // routes : 
 app.get("/comics", async (req, res) => {
-    console.log("dans comics")
+    const comics_link = `https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${API_KEY}`
     try {
-        const response = await axios.get(link);
+        const response = await axios.get(comics_link);
         res.json(response.data);
     } catch (error) {
         console.log(error.message);
+        res.json(404).status("This route doesn't exist")
     }
 });
+
 
 app.listen(process.env.PORT || local, () => {
     console.log("Server has started 🌪")
