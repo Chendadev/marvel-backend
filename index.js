@@ -24,7 +24,18 @@ app.get("/comics", async (req, res) => {
         res.json(404).status("This route doesn't exist")
     }
 });
-
+app.get("/characters", async (req, res) => {
+    const id = req.query.id
+    const comics_link = `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${API_KEY}`
+    try {
+        const response = await axios.get(comics_link);
+        console.log("routes characters")
+        res.json(response.data);
+    } catch (error) {
+        console.log(error.message);
+        res.json(404).status("This route doesn't exist")
+    }
+});
 
 app.listen(process.env.PORT || local, () => {
     console.log("Server has started 🌪")
