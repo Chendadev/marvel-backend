@@ -6,7 +6,7 @@ const axios = require("axios");
 
 // link and local port : 
 const local = 4000;
-const API_KEY = process.env.YOUR_API_KEY;
+const API_KEY = process.env.API_KEY;
 
 // initialize server : 
 const app = express();
