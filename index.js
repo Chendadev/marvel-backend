@@ -18,18 +18,17 @@ app.get("/comics", async (req, res) => {
     try {
         const comics_link = `https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${API_KEY}`
         const response = await axios.get(comics_link);
-        res.json(response.data);
+        res.json(response.data.results);
     } catch (error) {
         console.log(error.message);
         res.status(404).json("This route doesn't exist")
     }
 });
 app.get("/characters", async (req, res) => {
-    const comics_link = `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${API_KEY}`
     try {
-        const response = await axios.get(comics_link);
-        console.log("routes characters")
-        res.json(response.data);
+        const characters_id = `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${API_KEY}`
+        const response = await axios.get(characters_id);
+        res.json(response.data.results);
     } catch (error) {
         console.log(error.message);
         res.status(404).json("This route doesn't exist")
@@ -37,13 +36,10 @@ app.get("/characters", async (req, res) => {
 });
 
 app.get("/comics/:characterId", async (req, res) => {
-    // const id = req.params
-
     try {
         const { id } = req.params
-        const comics_link = `https://lereacteur-marvel-api.herokuapp.com/comics/${id}?apiKey=${API_KEY}`
-        const response = await axios.get(comics_link);
-        console.log("routes comics/characters")
+        const comics_charact_link = `https://lereacteur-marvel-api.herokuapp.com/comics/${id}?apiKey=${API_KEY}`
+        const response = await axios.get(comics_charact_link);
         res.json(response.data);
     } catch (error) {
         console.log(error.message);
