@@ -15,17 +15,16 @@ app.use(cors());
 
 // routes : 
 app.get("/comics", async (req, res) => {
-    const comics_link = `https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${API_KEY}`
     try {
+        const comics_link = `https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${API_KEY}`
         const response = await axios.get(comics_link);
         res.json(response.data);
     } catch (error) {
         console.log(error.message);
-        res.json(404).status("This route doesn't exist")
+        res.status(404).json("This route doesn't exist")
     }
 });
 app.get("/characters", async (req, res) => {
-    const id = req.query.id
     const comics_link = `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${API_KEY}`
     try {
         const response = await axios.get(comics_link);
@@ -33,7 +32,22 @@ app.get("/characters", async (req, res) => {
         res.json(response.data);
     } catch (error) {
         console.log(error.message);
-        res.json(404).status("This route doesn't exist")
+        res.status(404).json("This route doesn't exist")
+    }
+});
+
+app.get("/comics/:characterId", async (req, res) => {
+    // const id = req.params
+
+    try {
+        const { id } = req.params
+        const comics_link = `https://lereacteur-marvel-api.herokuapp.com/comics/${id}?apiKey=${API_KEY}`
+        const response = await axios.get(comics_link);
+        console.log("routes comics/characters")
+        res.json(response.data);
+    } catch (error) {
+        console.log(error.message);
+        res.status(404).json("This route doesn't exist")
     }
 });
 
