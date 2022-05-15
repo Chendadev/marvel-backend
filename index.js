@@ -28,7 +28,7 @@ app.get("/comics", async (req, res) => {
 // all characters :
 app.get("/characters", async (req, res) => {
     try {
-        const characters_id = `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${API}`
+        const characters_id = `https://lereacteur-marvel-api.herokuapp.com/characters?limit100=&page=${page}?apiKey=${API}`
         const response = await axios.get(characters_id);
         res.json(response.data);
     } catch (error) {
@@ -37,6 +37,7 @@ app.get("/characters", async (req, res) => {
     }
 });
 
+// List of comics containing a specific character :
 app.get("/comics/:characterId", async (req, res) => {
     try {
         const id = req.params.characterId
@@ -47,7 +48,7 @@ app.get("/comics/:characterId", async (req, res) => {
         res.json(error.message)
     }
 });
-
+// The infos of a specific character :
 app.get("/character/:characterId", async (req, res) => {
     try {
         const id = req.params.characterId
