@@ -28,7 +28,7 @@ app.get("/comics", async (req, res) => {
 // all characters :
 app.get("/characters", async (req, res) => {
     try {
-        const characters_id = `https://lereacteur-marvel-api.herokuapp.com/characters?limit100=&page=${page}?apiKey=${API}`
+        const characters_id = `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${API}`
         const response = await axios.get(characters_id);
         res.json(response.data);
     } catch (error) {
@@ -58,6 +58,10 @@ app.get("/character/:characterId", async (req, res) => {
     } catch (error) {
         res.json(error.message)
     }
+});
+
+app.get("*", (req, res) => {
+    res.json("404 ERROR NOT FOUND");
 });
 
 app.listen(process.env.PORT || local, () => {
