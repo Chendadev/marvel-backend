@@ -28,15 +28,16 @@ app.get("/comics", async (req, res) => {
 // all characters :
 app.get("/characters", async (req, res) => {
     try {
-        const skip = req.query.skip;
-        const name = req.query.name;
-        const limit = req.query.limit;
-        if (limit > 100) limit = 100;
+        const skip = req.query;
+        const name = req.query;
+        const limit = req.query;
+        if (limit > 100) {
+            limit = 100;
+        }
         const characters_id = `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${API}&skip=${skip}&name=${name}&limit=${limit}`
         const response = await axios.get(characters_id);
         res.json(response.data);
     } catch (error) {
-        console.log(error.message);
         res.json({ error: error.message })
     }
 });
